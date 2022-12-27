@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const Category = () => {
   const [datas, setDatas] = useState([]);
+
   useEffect(() => {
     fetch("http://localhost:3000/api/category")
       .then((res) => res.json())
