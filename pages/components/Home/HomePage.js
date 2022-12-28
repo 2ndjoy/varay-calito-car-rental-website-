@@ -1,6 +1,6 @@
 import React from "react";
 import AboutUs from "../AboutUs/AboutUs";
-import Category from "../category/category";
+import Category from "../Category/Category";
 import ServicePage from "../ServicePage/ServicePage";
 import Banner from "./Banner";
 
