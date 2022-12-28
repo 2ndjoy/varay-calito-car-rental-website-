@@ -8,8 +8,8 @@ const Header = () => {
     logOut();
   };
   return (
-    <div className="mb-5">
-      <div className="navbar bg-base-100">
+    <div className="mb-5" style={{ color: "white" }}>
+      <div className="navbar bg-black">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -33,34 +33,34 @@ const Header = () => {
               className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <Link href="/service/service">Service</Link>
+                <Link href="/service/service">SERVICE</Link>
               </li>
               <li>
-                <Link href="/blogs/blogs">Blogs</Link>
+                <Link href="/blogs/blogs">BLOGS</Link>
               </li>
               <li>
-                <Link href="/aboutus/aboutus">About us</Link>
+                <Link href="/aboutus/aboutus">ABOUT US</Link>
               </li>
             </ul>
           </div>
-          <Link href="/" className="btn btn-ghost normal-case text-xl">
-            Varay Calito
+          <Link href="/" className="ml-3">
+            <h1 className="text-xl font-bold">VARAY COLE</h1>
           </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link href="/service/service">Service</Link>
+              <Link href="/service/service">SERVICE</Link>
             </li>
             <li>
-              <Link href="/blogs/blogs">Blogs</Link>
+              <Link href="/blogs/blogs">BLOGS</Link>
             </li>
             <li>
-              <Link href="/aboutus/aboutus">About us</Link>
+              <Link href="/aboutus/aboutus">ABOUT US</Link>
             </li>
           </ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end mr-3">
           <div className="dropdown dropdown-end">
             {user?.email ? (
               <>
@@ -77,12 +77,14 @@ const Header = () => {
                     <a className="justify-between">{user?.displayName}</a>
                   </li>
                   <li>
-                    <button onClick={handlelogout}>Log out</button>
+                    <button onClick={handlelogout}>LOG OUT</button>
                   </li>
                 </ul>
               </>
             ) : (
-              <Link href="/login/login">Log in</Link>
+              <Link href="/login/login" className="btn text-white">
+                LOG IN
+              </Link>
             )}
           </div>
         </div>

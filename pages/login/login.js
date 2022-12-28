@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -14,21 +15,20 @@ const login = () => {
   const { signIn, forgetPassword } = useContext(AuthContext);
   const [loginemail, setLoginemail] = useState("");
 
-  // const from = location.state?.from?.pathname || "/";
+  const router = useRouter();
 
   const handleLogin = (data) => {
-    // console.log(data);
     setLoginError("");
     signIn(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
+        router.push("/");
         setLoginemail(data.email);
-        // navigate(from, { replace: true });
       })
       .catch((error) => {
-        // console.log(error.message)
         setLoginError(error.message);
+        toast.error(error.message);
       });
   };
 
@@ -46,7 +46,7 @@ const login = () => {
   };
 
   return (
-    <div className="h-[800px] flex justify-center items-center">
+    <div className="h-[800px] flex justify-center text-white items-center">
       <div className="w-96 p-7">
         <h2 className="text-xl text-center">Login</h2>
         <form onSubmit={handleSubmit(handleLogin)}>
@@ -88,7 +88,7 @@ const login = () => {
             )}
           </div>
           <input
-            className="btn bg-amber-900 text-white w-full my-4"
+            className="btn bg-blue-300 text-black w-full my-4"
             value="Login"
             type="submit"
           />
@@ -102,14 +102,14 @@ const login = () => {
         >
           Forget Password?
         </button>
-        <p className="text-amber-900">
-          New to Varay Calito?{" "}
-          <Link className="text-amber-700" href="/register/register">
+        <p className="">
+          New to Varay Calito?{"    "}
+          <Link className="text-blue-300" href="/register/register">
             Create new Account
           </Link>
         </p>
         <div className="divider">OR</div>
-        <button className="btn text-amber-900 btn-outline w-full">
+        <button className="btn text-blue-300 btn-outline w-full">
           CONTINUE WITH GOOGLE
         </button>
       </div>

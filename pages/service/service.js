@@ -1,42 +1,22 @@
-import React, { useEffect, useState } from "react";
-import Gallery from "../../components/Gallery/Gallery";
-import Loader from "../../components/Loader/Loader";
+import React, { useContext } from "react";
+import { toast } from "react-hot-toast";
+import { AuthContext } from "../../components/Context/AuthProvider";
+import ServicePage from "../components/ServicePage/ServicePage";
 
-const index = () => {
-  const [datas, setDatas] = useState([]);
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    fetch("https://varay-calito-server.vercel.app/service")
-      .then((res) => res.json())
-      .then((data) => {
-        setDatas(data);
-        setLoading(false);
-      });
-  }, []);
+const service = () => {
+  const { user } = useContext(AuthContext);
+  const handleRent = (id) => {
+    if (user?.email) {
+      toast.success("You Have rented successfully");
+    } else {
+      router.push("/login/login");
+    }
+  };
   return (
-    <div className="py-12">
-      <div className="lg:flex lg:flex-wrap lg:gap-5 grid justify-center">
-        {loading ? (
-          <Loader></Loader>
-        ) : (
-          datas.map((data) => (
-            <div className="card card-compact w-96 bg-base-100 shadow-xl">
-              <figure>
-                <Gallery img={data.img}></Gallery>
-              </figure>
-              <div className="card-body">
-                <h2 className="card-title">{data.carName}</h2>
-                {/* <p>If a dog chews shoes whose shoes does he choose?</p> */}
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary">Rent Now</button>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+    <div>
+      <ServicePage handleRent={handleRent}></ServicePage>
     </div>
   );
 };
 
-export default index;
+export default service;

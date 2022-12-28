@@ -3,19 +3,20 @@ import Gallery from "../../../components/Gallery/Gallery";
 import Loader from "../../../components/Loader/Loader";
 import PrimaryButton from "../../../components/PrimaryButton.js/PrimaryButton";
 
-const ServicePage = () => {
+const ServicePage = ({ handleRent }) => {
   const [datas, setDatas] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("https://varay-calito-server.vercel.app/service")
+    fetch("https://varay-calito-server.vercel.app/services")
       .then((res) => res.json())
       .then((data) => {
         setDatas(data);
         setLoading(false);
       });
   }, []);
+
   return (
-    <div className="py-12 mx-1">
+    <div className="py-12 mx-1" style={{ color: "white" }}>
       <div className="lg:flex lg:flex-wrap lg:gap-5 grid justify-center">
         {loading ? (
           <Loader></Loader>
@@ -29,7 +30,13 @@ const ServicePage = () => {
                 <h2 className="card-title">{data.carName}</h2>
                 {/* <p>If a dog chews shoes whose shoes does he choose?</p> */}
                 <div className="card-actions justify-end">
-                  <PrimaryButton classes="p-2 rounded">Rent Now</PrimaryButton>
+                  <button
+                    onClick={() => handleRent(data._id)}
+                    className="btn btn-primary text-white font-semibold border-none hover:text-black bg-gradient-to-r from-blue-400 to-violet-300 text-black font-semibold"
+                    style={{ backgroundColor: "blueviolet" }}
+                  >
+                    Rent Now
+                  </button>
                 </div>
               </div>
             </div>

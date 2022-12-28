@@ -4,7 +4,7 @@ import PrimaryButton from "../../../components/PrimaryButton.js/PrimaryButton";
 
 const AboutUs = () => {
   return (
-    <div className="hero min-h-screen px-16">
+    <div className="hero min-h-screen px-16" style={{ color: "white" }}>
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="relative lg:flex hidden w-1/2">
           <img

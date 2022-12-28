@@ -1,14 +1,13 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-// import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../components/Context/AuthProvider";
 
 const register = () => {
   const { createUser, updateUserProfile } = useContext(AuthContext);
-
-  // const [createdemail, setCreatedemail] = useState("");
+  const router = useRouter();
 
   const {
     register,
@@ -18,9 +17,7 @@ const register = () => {
   const [signUpError, setsignUpError] = useState("");
 
   const imageHostKEy = process.env.REACT_APP_IMGB_APIKEY;
-  // console.log(imageHostKEy);
   const handleSignUp = (data) => {
-    // console.log(imageHostKEy)
     const photo = data.photo[0];
     const formData = new FormData();
     formData.append("image", photo);
@@ -35,33 +32,29 @@ const register = () => {
         createUser(data.email, data.password).then((result) => {
           const user = result.user;
           console.log(user);
-          // saveUser(data.email, data.name, data.role);
+          // saveUser(data.email, data.name);
           updateUserProfile(data.name, imgData.data.display_url).then(
             toast.success("user created successfully")
           );
-          // navigate(from, { replace: true }).catch((err) => console.log(err));
+          router.push("/");
         });
       });
-    // console.log(data)
   };
 
-  // const saveUser = (email, name, role) => {
-  //   const user = { email, name, role };
-  //   fetch(
-  //     "https://b612-used-products-resale-server-side-ten.vercel.app/users",
-  //     {
-  //       method: "POST",
-  //       headers: {
-  //         "content-type": "application/json",
-  //       },
-  //       body: JSON.stringify(user),
-  //     }
-  //   )
+  // const saveUser = (email, name) => {
+  //   const user = { email, name };
+  //   fetch("http://localhost:5000/users", {
+  //     method: "POST",
+  //     headers: {
+  //       "content-type": "application/json",
+  //     },
+  //     body: JSON.stringify(user),
+  //   })
   //     .then((res) => res.json())
   //     .then((data) => {
-  //       // setCreatedemail(email);
-  //       // console.log(data)
+  //       console.log(data);
   //     });
+  //   console.log(user);
   // };
 
   return (
@@ -150,9 +143,9 @@ const register = () => {
 
           {signUpError && <p className="text-red-500">{signUpError}</p>}
         </form>
-        <p className="text-amber-900">
+        <p className="text-blue-300">
           Already have an account? Please{" "}
-          <Link className="text-amber-700" href="/login/login">
+          <Link className="text-amber-100" href="/login/login">
             Log in
           </Link>
         </p>
