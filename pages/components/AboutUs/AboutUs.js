@@ -6,7 +6,7 @@ const AboutUs = () => {
   return (
     <div className="hero min-h-screen px-16">
       <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="relative w-1/2">
+        <div className="relative lg:flex hidden w-1/2">
           <img
             alt=""
             src="https://i.ibb.co/XYG4qm3/bann5.jpg"

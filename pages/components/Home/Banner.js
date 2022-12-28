@@ -7,12 +7,13 @@ const Banner = () => {
       <div className={classes.bannerImg}>
         <img src="https://i.ibb.co/c3Tn71g/bann2.jpg" alt="" />
       </div>
-      <div className="absolute flex justify-end transform -translate-y-3/4 lg:right-60 md:right-60 right-32 top-2/4">
-        <h1 className="lg:text-4xl text-xl font-bold">
+      <div className="absolute flex justify-end transform -translate-y-3/4 lg:right-60 md:right-0 right-32 top-2/4">
+        <h1 className="lg:text-4xl text-xl font-semibold">
           <i>
-            Purchase Furniture <br />
-            with a reasonable
-            <br /> budget
+            RENT CARS FROM US
+            <br />
+            WITH A REASONABLE
+            <br /> BUDGET
           </i>
         </h1>
       </div>

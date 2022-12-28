@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Gallery from "../../components/Gallery/Gallery";
 import Loader from "../../components/Loader/Loader";
 
 const index = () => {
@@ -21,7 +22,7 @@ const index = () => {
           datas.map((data) => (
             <div className="card card-compact w-96 bg-base-100 shadow-xl">
               <figure>
-                <img src={data.img} alt="Shoes" />
+                <Gallery img={data.img}></Gallery>
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{data.carName}</h2>
