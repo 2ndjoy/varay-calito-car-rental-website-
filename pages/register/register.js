@@ -9,6 +9,9 @@ const register = () => {
     const password = form.password.value;
     console.log(email, password);
   };
+
+
+
   return (
     <div>
       <div className="hero min-h-screen bg-base-200">

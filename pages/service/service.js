@@ -5,7 +5,7 @@ const index = () => {
   const [datas, setDatas] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("http://localhost:3000/api/service")
+    fetch("https://varay-calito-server.vercel.app/service")
       .then((res) => res.json())
       .then((data) => {
         setDatas(data);

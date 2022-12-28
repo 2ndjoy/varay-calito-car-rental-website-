@@ -4,7 +4,7 @@ const Category = () => {
   const [datas, setDatas] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/category")
+    fetch("https://varay-calito-server.vercel.app/catagories")
       .then((res) => res.json())
       .then((data) => setDatas(data));
   }, []);
