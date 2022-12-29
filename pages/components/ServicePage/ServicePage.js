@@ -31,7 +31,7 @@ const ServicePage = ({ handleRent }) => {
                 {/* <p>If a dog chews shoes whose shoes does he choose?</p> */}
                 <div className="card-actions justify-end">
                   <button
-                    onClick={() => handleRent(data._id)}
+                    onClick={() => handleRent(data)}
                     className="btn btn-primary text-white font-semibold border-none hover:text-black bg-gradient-to-r from-blue-400 to-violet-300 text-black font-semibold"
                     style={{ backgroundColor: "blueviolet" }}
                   >

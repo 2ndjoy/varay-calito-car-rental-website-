@@ -32,7 +32,7 @@ const register = () => {
         createUser(data.email, data.password).then((result) => {
           const user = result.user;
           console.log(user);
-          // saveUser(data.email, data.name);
+          saveUser(data.email, data.name);
           updateUserProfile(data.name, imgData.data.display_url).then(
             toast.success("user created successfully")
           );
@@ -41,21 +41,21 @@ const register = () => {
       });
   };
 
-  // const saveUser = (email, name) => {
-  //   const user = { email, name };
-  //   fetch("http://localhost:5000/users", {
-  //     method: "POST",
-  //     headers: {
-  //       "content-type": "application/json",
-  //     },
-  //     body: JSON.stringify(user),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log(data);
-  //     });
-  //   console.log(user);
-  // };
+  const saveUser = (email, name) => {
+    const user = { email, name };
+    fetch("https://varay-calito-server.vercel.app/users", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(user),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+    console.log(user);
+  };
 
   return (
     <div className="h-[800px] flex justify-center items-center">

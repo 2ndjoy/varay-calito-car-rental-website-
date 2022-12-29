@@ -5,12 +5,34 @@ import ServicePage from "../components/ServicePage/ServicePage";
 
 const service = () => {
   const { user } = useContext(AuthContext);
-  const handleRent = (id) => {
+
+  const handleRent = (data) => {
     if (user?.email) {
-      toast.success("You Have rented successfully");
+      const rent = {
+        image: data.img,
+        carName: data.carName,
+        userEmail: user.email,
+        userName: user.displayName,
+      };
+
+      fetch("https://varay-calito-server.vercel.app/bookings", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(rent),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.acknowledged) {
+            toast.success(`You Have rented successfully`);
+          }
+        });
     } else {
+      toast.error("Please log in ");
       router.push("/login/login");
     }
+    console.log(data);
   };
   return (
     <div>

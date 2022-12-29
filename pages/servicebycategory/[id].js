@@ -10,17 +10,37 @@ const service = () => {
   const [loading, setLoading] = useState(true);
 
   const { user } = useContext(AuthContext);
-  const handleRent = (id) => {
+  const handleRent = (data) => {
     if (user?.email) {
-      toast.success("You Have rented successfully");
+      const rent = {
+        image: data.img,
+        carName: data.carName,
+        userEmail: user.email,
+        userName: user.displayName,
+      };
+
+      fetch("https://varay-calito-server.vercel.app/bookings", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(rent),
+      })
+        .then((res) => res.json())
+        .then((result) => {
+          if (result.acknowledged) {
+            toast.success(`You Have rented successfully`);
+          }
+        });
     } else {
       toast.error("Please log in ");
       router.push("/login/login");
     }
+    console.log(data);
   };
 
   const router = useRouter();
-  console.log(router.pathname);
+  // console.log(router.pathname);
 
   useEffect(() => {
     fetch(
@@ -49,7 +69,7 @@ const service = () => {
                 {/* <p>If a dog chews shoes whose shoes does he choose?</p> */}
                 <div className="card-actions justify-end">
                   <button
-                    onClick={() => handleRent(data?._id)}
+                    onClick={() => handleRent(data)}
                     className="btn btn-primar border-none hover:text-black bg-gradient-to-r from-blue-400 to-violet-300 text-black font-semibold"
                     style={{ backgroundColor: "blueviolet" }}
                   >
