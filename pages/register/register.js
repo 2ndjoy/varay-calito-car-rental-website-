@@ -43,7 +43,7 @@ const register = () => {
 
   const saveUser = (email, name) => {
     const user = { email, name };
-    fetch("https://varay-calito-server.vercel.app/users", {
+    fetch("http://localhost:5000/users", {
       method: "POST",
       headers: {
         "content-type": "application/json",

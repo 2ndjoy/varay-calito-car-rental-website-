@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import { AuthContext } from "../../components/Context/AuthProvider";
 import Loader from "../../components/Loader/Loader";
 
@@ -10,9 +11,7 @@ const myorder = () => {
 
   try {
     useEffect(() => {
-      fetch(
-        `https://varay-calito-server.vercel.app/bookings?userEmail=${user?.email}`
-      )
+      fetch(`http://localhost:5000/bookings?userEmail=${user?.email}`)
         .then((res) => res.json())
         .then((data) => {
           setDatas(data);
@@ -23,6 +22,29 @@ const myorder = () => {
     console.log(error);
     setLoading(false);
   }
+
+  const handleDelete = (id) => {
+    console.log(id);
+
+    fetch(`http://localhost:5000/bookings/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.deletedCount > 0) {
+          const remaining = datas.filter((ord) => ord._id !== id);
+          setDatas(remaining);
+          toast.success(`Canceled Successfully`);
+
+          // refetch();
+        }
+      });
+  };
+  const handlePay = (id) => {
+    console.log(id);
+  };
+
   return (
     <div className="pb-24 px-4 mx-4 mb-96">
       {loading ? (
@@ -37,7 +59,7 @@ const myorder = () => {
                 <th></th>
                 <th>Order Name</th>
                 <th>Image</th>
-                <th>Actions</th>
+                <th></th>
                 <th></th>
               </tr>
             </thead>
@@ -51,6 +73,7 @@ const myorder = () => {
                   <td>
                     <button className="btn btn-ghost btn-xs">Loading..</button>
                   </td>
+                  <th></th>
                   <th></th>
                 </tr>
               ) : (
@@ -69,9 +92,21 @@ const myorder = () => {
                       </div>
                     </td>
                     <td>
-                      <button className="btn btn-ghost btn-xs">Cancel</button>
+                      <button
+                        onClick={() => handleDelete(data._id)}
+                        className="btn btn-ghost btn-xs"
+                      >
+                        Cancel
+                      </button>
                     </td>
-                    <th></th>
+                    <td>
+                      <button
+                        onClick={() => handlePay(data._id)}
+                        className="btn btn-ghost btn-xs"
+                      >
+                        Pay {"  "}${data.serviceCharge}
+                      </button>
+                    </td>
                   </tr>
                 ))
               )}

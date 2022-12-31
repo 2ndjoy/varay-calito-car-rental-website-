@@ -7,7 +7,7 @@ const ServicePage = ({ handleRent }) => {
   const [datas, setDatas] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    fetch("https://varay-calito-server.vercel.app/services")
+    fetch("http://localhost:5000/services")
       .then((res) => res.json())
       .then((data) => {
         setDatas(data);
@@ -28,8 +28,11 @@ const ServicePage = ({ handleRent }) => {
               </figure>
               <div className="card-body">
                 <h2 className="card-title">{data.carName}</h2>
+
                 {/* <p>If a dog chews shoes whose shoes does he choose?</p> */}
                 <div className="card-actions justify-end">
+                  <p className="">Service Charge ${data.serviceCharge}</p>
+
                   <button
                     onClick={() => handleRent(data)}
                     className="btn btn-primary text-white font-semibold border-none hover:text-black bg-gradient-to-r from-blue-400 to-violet-300 text-black font-semibold"

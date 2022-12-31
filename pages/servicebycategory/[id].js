@@ -17,9 +17,10 @@ const service = () => {
         carName: data.carName,
         userEmail: user.email,
         userName: user.displayName,
+        serviceCharge: data.serviceCharge,
       };
 
-      fetch("https://varay-calito-server.vercel.app/bookings", {
+      fetch("http://localhost:5000/bookings", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -29,7 +30,7 @@ const service = () => {
         .then((res) => res.json())
         .then((result) => {
           if (result.acknowledged) {
-            toast.success(`You Have rented successfully`);
+            toast.success(`You Have booked successfully`);
           }
         });
     } else {
@@ -43,9 +44,7 @@ const service = () => {
   // console.log(router.pathname);
 
   useEffect(() => {
-    fetch(
-      `https://varay-calito-server.vercel.app/services/${router?.query?.id}`
-    )
+    fetch(`http://localhost:5000/services/${router?.query?.id}`)
       .then((res) => res.json())
       .then((data) => {
         setDatas(data);
