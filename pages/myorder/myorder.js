@@ -1,14 +1,23 @@
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import CheckOutForm from "../../components/Checkout/CheckOutForm";
 import { AuthContext } from "../../components/Context/AuthProvider";
 import Loader from "../../components/Loader/Loader";
+
+const stripePromise = loadStripe(
+  "pk_test_51M6Rm0BoLlijAEU1Aod6wshPfPouwlRr3BLSxZaXFh9inNeiQlWvIKc3t8uHlawvfZMd058fb1K5FboXEk2atZhx00Z4Os5pdF"
+);
 
 const myorder = () => {
   const { user } = useContext(AuthContext);
   const [datas, setDatas] = useState([]);
+  const [newData, setNewData] = useState({});
   const [loading, setLoading] = useState(true);
   //   console.log(user?.email);
-
+  const router = useRouter();
   try {
     useEffect(() => {
       fetch(`http://localhost:5000/bookings?userEmail=${user?.email}`)
@@ -41,9 +50,13 @@ const myorder = () => {
         }
       });
   };
-  const handlePay = (id) => {
-    console.log(id);
-  };
+  // const handlePay = (data) => {
+  //   // console.log(id);
+  //   setNewData(data);
+  //   console.log("newData", newData);
+  //   // router.push(`/payment/${id}`);
+  // };
+  console.log("newData", newData);
 
   return (
     <div className="pb-24 px-4 mx-4 mb-96">
@@ -100,12 +113,43 @@ const myorder = () => {
                       </button>
                     </td>
                     <td>
-                      <button
-                        onClick={() => handlePay(data._id)}
-                        className="btn btn-ghost btn-xs"
+                      <label
+                        onClick={() => setNewData(data)}
+                        htmlFor="my-modal"
+                        className="btn"
                       >
                         Pay {"  "}${data.serviceCharge}
-                      </button>
+                      </label>
+
+                      <input
+                        type="checkbox"
+                        id="my-modal"
+                        className="modal-toggle"
+                      />
+                      <div className="modal">
+                        <div className="modal-box relative">
+                          <label
+                            htmlFor="my-modal"
+                            className="btn btn-sm btn-circle absolute right-2 top-2"
+                          >
+                            ✕
+                          </label>
+                          <h3 className="text-lg font-bold">
+                            Payment for {newData?.carName}
+                          </h3>
+                          <p className="py-4">
+                            Please pay {"  "}{" "}
+                            <span className="text-white">
+                              ${newData?.serviceCharge}
+                            </span>
+                          </p>
+                          <div>
+                            <Elements stripe={stripePromise}>
+                              <CheckOutForm newData={newData}></CheckOutForm>
+                            </Elements>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -114,6 +158,10 @@ const myorder = () => {
           </table>
         </div>
       )}
+
+      {/* The button to open modal */}
+
+      {/* Put this part before </body> tag */}
     </div>
   );
 };
